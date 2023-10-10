@@ -1,9 +1,9 @@
 import { CardsFilter } from "../../organisms/cardfilters/cardsFilter";
 
 
-export const CardsFilterTemplate = () => {
+export const CardsFilterTemplate = ({getDataHotels}) => {
     return (
-            <CardsFilter/>
+            <CardsFilter getDataHotels={getDataHotels}/>
         );
 };
     
