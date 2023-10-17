@@ -4,7 +4,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { MainButton } from "../../atoms/button/button";
+import { MainButton } from "../../atoms/button/Button";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { addReservation } from "@/app/store/reservasSlice";
