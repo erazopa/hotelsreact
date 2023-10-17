@@ -1,11 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CardHotel } from "../../molecules/card/card";
 import { Header } from "../../molecules/header/header";
 import styles from "./cardsFilter.module.css";
 import { hotelRooms } from "@/app/utils/helper";
 import Alert from '@mui/material/Alert';
 import { Snackbar } from "@mui/material";
+import { AppContext } from "@/app/store/CurrentProvider";
 
 export const CardsFilter = ({getDataHotels}) => {
   const [selectedCountry, setSelectedCountry] = useState(`all`);
@@ -15,6 +16,11 @@ export const CardsFilter = ({getDataHotels}) => {
   const [dateHotelTo, setDateHotelTo] = useState(`all`);
   const [filterHotels, setFilterHotels] = useState([])
   const [showSnackbar, setShowSnackbar] = useState(false);
+  const {setHomePage} = useContext(AppContext)
+
+  useEffect(()=>{
+    setHomePage
+  }, [])
   // const [hotelsData, sethotelsData] = useState([]);
 
 
@@ -74,7 +80,7 @@ const dateFrom = new Date(dateHotelFrom);
     selectedSize,
     dateHotelFrom,
     dateHotelTo,
-    filterHotels,
+    
   ]
   
   )
@@ -134,7 +140,7 @@ const dateFrom = new Date(dateHotelFrom);
       </div>
         ) : (
           <Alert variant="filled" severity="info">
-          No hay hoteles disponibles — Sigue buscando!
+          No hemos encontrado resultado para su busqueda — !Sigue buscando!
         </Alert>
   
         )}

@@ -3,12 +3,37 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { MainButton } from "../../atoms/button/button";
+import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { addReservation } from "@/app/store/reservasSlice";
 
 export const CardHotel = ({ hotel, snackbar }) => {
-  // const handleClick = () => {};  
+  
+  const dispatch = useDispatch();
+
+const listHotelReservation = useSelector(
+  (state) => state.reservation.hotelReservation
+);
+
+  const handleClick = () => {
+    localStorage.setItem("selectedHotel", JSON.stringify(hotel));
+  };
+
+  const handleReservation = () => {
+
+    const hotelExistent = listHotelReservation.some(
+      (hotels) => hotels.name === hotel.name
+    );
+    if (hotelExistent) {
+    alert ('El hotel ya esta reservado');
+    } else {
+      console.log('Hotel agregado')
+      dispatch(addReservation(hotel));
+      snackbar(true);
+    }
+  };
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -49,12 +74,19 @@ export const CardHotel = ({ hotel, snackbar }) => {
         </Typography>
       </CardContent>
       <CardActions className={styles.containerButton}>
-        <MainButton className={styles.buttonCardHotel}>Detalles</MainButton>
-        <MainButton className={styles.buttonCardHotel}
-        onClick={()=>snackbar(true)}
+        <Link href={`detail/${hotel.name}`}>
+          <MainButton className={styles.buttonCardHotel} onClick={handleClick}>
+            Detalles
+          </MainButton>
+        </Link>
+
+        <MainButton
+          className={styles.buttonCardHotel}
+          onClick={handleReservation}
         >
-          Reservas</MainButton>
+          Reservas
+        </MainButton>
       </CardActions>
     </Card>
   );
-}; 
+};
